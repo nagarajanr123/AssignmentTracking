@@ -1,0 +1,19 @@
+Create Table Institution_Master (
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+name char(30) not null unique,
+AddressLine1 char(30) not null,
+AddressLine2 char(30) not null,
+City char(20) not null,
+State char(20) not null,
+Zip char(10) not null ,
+Country char(30) not null,
+AdminUser char(20) not null,
+Password char(20) not null,
+Active  char(1),
+PRIMARY KEY (id)
+)
+
+Insert into Institution_Master
+(name,AddressLine1,Addressline2,City,State,Zip,Country,AdminUser,Password)
+values
+('Krishna Institute','230 Velan Nagar','Valasaravakka,','Chennai','600098','India','Krishna','Krishna123')
