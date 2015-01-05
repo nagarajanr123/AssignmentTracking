@@ -21,10 +21,22 @@ class InstitutionMaster extends DBParent
 			"'" . $password . "'," .
 			"'" . $active ."')";
 	$query = $query . $values;
-	echo $query;
-	$conn->query($query);
-	printf ("New Record has id %d.\n", $conn->insert_id);
+	if (!$conn->query($query)) {
+		
+		return $conn->error;
+	}
 	$conn->close();
+    }
+    public function GetInstitutionList()
+    {
+	$conn  = $this->CreateDBConnection();
+	$query= 'select name from Institution_Master order by upper(name)';
+	$result=$conn->query($query);
+	$namelist=array();
+	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    		$namelist[]= $row[0];
+	}
+	return $namelist;
 
     }
     public function SimpleEcho()
@@ -35,5 +47,4 @@ class InstitutionMaster extends DBParent
     }
     
 }
-
 ?>

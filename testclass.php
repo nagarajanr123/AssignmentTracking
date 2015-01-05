@@ -1,7 +1,8 @@
 <?php
 include('classes/institutionmaster.php');
 $im=new InstitutionMaster();
-$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');
+//$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');
+$im->GetInstitutionList();
 // $im->SimpleEcho();
 echo "here";
 

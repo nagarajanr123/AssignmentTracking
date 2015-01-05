@@ -1,3 +1,6 @@
+<?php
+include('classes/institutionmaster.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Theme Template for Bootstrap</title>
+    <title>Sign up</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -50,54 +53,114 @@
 	<div class="panel-heading">
 	    <h3 class="panel-title">Create New Institution</h3>
 	</div>
-	<div class="panel-body">
-<form class="form-horizontal" >
-  <div class="form-group">
-    <label for="txtName">Institution Name:</label>
-    <input  class="form-control" id="txtInstitutionName" placeholder="Institution Name" maxlength="30"  required>
-  </div>
+<?php
+$name='';
+$add1='';
+$add2='';
+$city='';
+$state='';
+$zip='';
+$country='';
+$username='';
+$pwd='';
+$active='';
+$activedb='';
+$success=false;
+if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+{
+	$name=$_POST["txtInstitutionName"];
+	$add1=$_POST["txtAddressLine1"];
+	$add2=$_POST["txtAddressLine2"];
+	$city=$_POST["txtCity"];
+	$state=$_POST["txtState"];
+	$zip=$_POST["txtZip"];
+	$country=$_POST["txtCountry"];
+	$username=$_POST["txtAdminUser"];
+	$pwd=$_POST["txtPassword"];
+	if (isset($_POST["chkActive"])) {
+	    $active="checked";
+	    $activedb='A';
+	};
+	$im=new InstitutionMaster();
+	$res=$im->InsertRecord($name,$add1,$add2,$city,$state,$zip,$country,$username,$pwd,$activedb);
+	// $im->SimpleEcho();
+	if($res==""){
+		$success=true;
+	}
+}	
+
+?>
+
+<?php 
+if ($success)
+{
+
+	echo "<h3 style='color: #006400;'> Successfully Registered..., go to Home and click Login...</h3>";
+
+}
+
+else
+{
+	if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')	
+	{
+		echo "<h3 style='color: #FF0000;'> Institution Name already exist or Invalid data, Please try again...</h3>";
+	}
+
+
+?>
+
+<div class="panel-body">
+	<form class="form-horizontal" method="post" action="signup.php" >
+	  <div class="form-group">
+	    <label for="txtName">Institution Name:</label>
+	    <input  class="form-control" name="txtInstitutionName" placeholder="Institution Name" maxlength="30" value="<?php echo $name; ?>" required>
+	  </div>
   <div class="form-group">
     <label for="txtAddressLine1">Address Line 1:</label>
-    <input  class="form-control" id="txtAddressLine1" placeholder="Address Line 1" maxlength="30" required>
+    <input  class="form-control" name="txtAddressLine1" placeholder="Address Line 1" maxlength="30" value="<?php echo $add1; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtAddressLine2">Address Line 2:</label> 
-    <input  class="form-control" id="txtAddressLine2" placeholder="Address Line 2" maxlength="30" required>
+    <input  class="form-control" name="txtAddressLine2" placeholder="Address Line 2" maxlength="30" value="<?php echo $add2; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtcity">City:</label>
-    <input  class="form-control" id="txtCity" placeholder="City" maxlength="20" required>
+    <input  class="form-control" name="txtCity" placeholder="City" maxlength="20" value="<?php echo $city; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtState">State:</label>
-    <input  class="form-control" id="txtState" placeholder="State" maxlength="20" required>
+    <input  class="form-control" name="txtState" placeholder="State" maxlength="20" value="<?php echo $state; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtZip">Zip Code:</label>
-    <input  class="form-control" id="txtZip" placeholder="Zip Code" maxlength="10" required>
+    <input  class="form-control" name="txtZip" placeholder="Zip Code" maxlength="10" value="<?php echo $zip; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtCountry">Country:</label>
-    <input  class="form-control" id="txtCountry" placeholder="Country:" maxlength="30" required>
+    <input  class="form-control" name="txtCountry" placeholder="Country:" maxlength="30" value="<?php echo $country; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtAdminUser">Admin User:</label>
-    <input  class="form-control" id="txtAdminUser" placeholder="User Name" maxlength="20" required>
+    <input  class="form-control" name="txtAdminUser" placeholder="User Name" maxlength="20"value="<?php echo $username; ?>" required>
   </div>
   <div class="form-group">
     <label for="txtAdminPassword">Password:</label>
-    <input  class="form-control" id="txtPassword" placeholder="Password" maxlength="20" required>
+    <input  class="form-control" name="txtPassword" placeholder="Password" maxlength="20" type="password" required>
   </div>
   <div class="checkbox">
     <label>
-      <input type="checkbox" name="chkActive"> Active
+      <input type="checkbox" name="chkActive" <?php echo $active; ?> > Active
     </label>
   </div>
-<br>
+	<br>
   <button type="submit" class="btn btn-default">Submit</button>
-</form>    		
+	</form>    		
 
-	</div>
+</div>
+
+<?php
+}
+?>
 
 	</div>
 
