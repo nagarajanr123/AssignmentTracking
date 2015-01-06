@@ -68,7 +68,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Home</a></li>
-            <li class="active"><a href="logout.php">Logout</a></li>
+            
           </ul>
         </div><!--/.nav-collapse -->
 
@@ -95,25 +95,32 @@ if ($error)
 <div class="panel-body">
 	<form class="form-horizontal" method="post" action="login.php" >
 	  <div class="form-group">
-	    <label for="txtName">User Name:</label>
-	    <input  class="form-control" name="txtUserName" placeholder="User Name" maxlength="30" value="<?php echo $username; ?>" required>
+	    <label for="txtName" class="col-sm-2 control-label">User Name:</label>
+<div class="col-sm-10">
+	    <input  class="form-control" name="txtUserName" placeholder="User Name" maxlength="30" value="<?php echo $username; ?>" required/>
+</div>
 	  </div>
   <div class="form-group">
-    <label for="txtAdminPassword">Password:</label>
+    <label for="txtAdminPassword" class="col-sm-2 control-label">Password:</label>
+<div class="col-sm-10">
     <input  class="form-control" name="txtPassword" placeholder="Password" maxlength="20" type="password" required>
+</div>
   </div>
 
  <div class="form-group">
-  <label for="usertpe">Select UserType:</label>
+  <label for="usertpe" class="col-sm-2 control-label">Select UserType:</label>
+<div class="col-sm-10">
   <select class="form-control" name="selusertype">
     <option>Admin</option>
     <option>Instructor</option>
     <option>Student</option>
   </select>
 </div>
+</div>
 
 <div class="form-group">
-  <label for="txtinstitute">Select Institution:</label>
+  <label for="txtinstitute" class="col-sm-2 control-label">Select Institution:</label>
+<div class="col-sm-10">
   <select class="form-control" name="selinstitute">
 <?php
 
@@ -124,9 +131,12 @@ foreach ($instlist as $value) {
     
   </select>
 </div>
+</div>
 
 <br>
+  <div class="col-sm-offset-2 col-sm-10">
   <button type="submit" class="btn btn-default">Submit</button>
+</div>
 	</form>    		
 
 </div>

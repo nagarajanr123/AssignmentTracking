@@ -1,16 +1,28 @@
 <?php
 
+include('classes/instructormaster.php');
+$im=new InstructorMaster();
+
+// echo $im->InsertRecord('13','test123','test123','testfirst','testlast','testadd1','testadd2','testcity','teststate','testzip',
+// $id,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
+echo $im->UpdateRecord(7,13,'mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','mytest1','A');
+// $res=$im->GetInstructorList();
+
+echo "here";
+
+
+/*
 include('classes/loginmaster.php');
 $im=new LoginMaster();
 //$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');
-echo $im->Login("admin","admin","American Institute","Admin");
+//echo $im->Login("admin","admin","American Institute","Admin");
 //$im->LandingPage();
 //$im->ResetSession();
 // $im->SimpleEcho();
 echo "here";
 
 
-/*
+
 include('classes/institutionmaster.php');
 $im=new InstitutionMaster();
 //$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');

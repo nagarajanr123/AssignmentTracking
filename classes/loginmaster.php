@@ -15,7 +15,9 @@ class LoginMaster extends DBParent
 		while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
 		if ($row[0]==$username AND $row[1]==$password)
 			{
-			   session_start();
+			  if(!isset($_SESSION)){
+    			  session_start();
+			}
 			   $_SESSION['usertype']  = $usertype;
 			   $_SESSION['username']  = $username;
 			   $_SESSION['institute'] = $institute;	
@@ -33,18 +35,25 @@ class LoginMaster extends DBParent
     }
     public function LandingPage()
     {
-	session_start();
-	if ($_SESSION['usertype'] == "Admin")
-	{
-		header("Location:adminlandingpage.php");
-		return;
+	if(!isset($_SESSION)){
+    		session_start();
 	}
-	// header("Location:index.php");
+	if(isset($_SESSION['usertype']))
+	{
+		if ($_SESSION['usertype'] == "Admin")
+		{
+			header("Location:adminlandingpage.php");
+			return;
+		}
+	}
+	
     }	
 
     public function CheckPermission($usertype)
     {
-	session_start();
+	if(!isset($_SESSION)){
+    		session_start();
+	}
 	if ($_SESSION['usertype'] !== $usertype)
 	{
 		header("Location:index.php");
@@ -54,14 +63,54 @@ class LoginMaster extends DBParent
     public function ResetSession()
     {
 	
-	session_start();
+	if(!isset($_SESSION)){
+    		session_start();
+	}
 	$_SESSION['usertype']  = '';
         $_SESSION['username']  = '';
 	$_SESSION['institute'] = '';
 	$_SESSION['instituteid']='';
 	header("Location:index.php");
 
-    }	
+    }
+    public function GetUserType()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['usertype'];
+        $_SESSION['username']  = '';
+	$_SESSION['institute'] = '';
+	$_SESSION['instituteid']='';
+    }
+    public function GetUsername()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['username'];
+
+
+    }
+    public function GetInstituteName()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['institute'];
+
+
+    }
+
+    public function GetInstituteID()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['instituteid'];
+
+    }
+	
 
     public function SimpleEcho()
     {

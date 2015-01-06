@@ -10,7 +10,7 @@ class LoginMaster extends DBParent
 	$conn  = $this->CreateDBConnection();
 	switch ($usertype) {
 	    case "Admin":
-		$query= "select adminuser, password from Institution_Master where name='" . $institute . "'";
+		$query= "select adminuser, password, id from Institution_Master where name='" . $institute . "'";
 		$result=$conn->query($query);
 		while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
 		if ($row[0]==$username AND $row[1]==$password)
@@ -19,6 +19,7 @@ class LoginMaster extends DBParent
 			   $_SESSION['usertype']  = $usertype;
 			   $_SESSION['username']  = $username;
 			   $_SESSION['institute'] = $institute;	
+			   $_SESSION['instituteid']=$row[2];
 			   $loggedin=true;
 			}
     			
@@ -33,12 +34,15 @@ class LoginMaster extends DBParent
     public function LandingPage()
     {
 	session_start();
-	if ($_SESSION['usertype'] == "Admin")
+	if(isset($_SESSION['usertype']))
 	{
-		header("Location:adminlandingpage.php");
-		return;
+		if ($_SESSION['usertype'] == "Admin")
+		{
+			header("Location:adminlandingpage.php");
+			return;
+		}
 	}
-	// header("Location:index.php");
+	
     }	
 
     public function CheckPermission($usertype)
@@ -57,9 +61,48 @@ class LoginMaster extends DBParent
 	$_SESSION['usertype']  = '';
         $_SESSION['username']  = '';
 	$_SESSION['institute'] = '';
+	$_SESSION['instituteid']='';
 	header("Location:index.php");
 
-    }	
+    }
+    public function GetUserType()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['usertype'];
+        $_SESSION['username']  = '';
+	$_SESSION['institute'] = '';
+	$_SESSION['instituteid']='';
+    }
+    public function GetUsername()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['username'];
+
+
+    }
+    public function GetInstituteName()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['institute'];
+
+
+    }
+
+    public function GetInstituteID()
+    {
+	if(!isset($_SESSION)){
+    		session_start();
+	}
+	return $_SESSION['instituteid'];
+
+    }
+	
 
     public function SimpleEcho()
     {

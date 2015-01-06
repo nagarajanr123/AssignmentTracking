@@ -2,6 +2,7 @@
 include('classes/loginmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission('Admin');
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +46,7 @@ $lm->CheckPermission('Admin');
             <li class="active"><a href="index.php">Home</a></li>
             <li class="active"><a href="logout.php">Logout</a></li>
           </ul>
+	  <p class="navbar-text"> <?php echo $lm->GetInstituteName(); ?> &nbsp;&nbsp;&nbsp;:Logged in as <?php echo $lm->GetUsername(); ?></p> 
         </div><!--/.nav-collapse -->
 
        <h1 style="color: #00ff00;"> Assignment and Reference Tracking Aid for Students </h1>
