@@ -30,7 +30,7 @@ class InstitutionMaster extends DBParent
     public function GetInstitutionList()
     {
 	$conn  = $this->CreateDBConnection();
-	$query= 'select name from Institution_Master order by upper(name)';
+	$query= "select name from Institution_Master where active='A' order by upper(name)";
 	$result=$conn->query($query);
 	$namelist=array();
 	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){

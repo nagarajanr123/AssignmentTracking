@@ -1,5 +1,8 @@
 <?php
 include('classes/institutionmaster.php');
+include('classes/loginmaster.php');
+$lm=new LoginMaster();
+$im->LandingPage();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +14,7 @@ include('classes/institutionmaster.php');
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Theme Template for Bootstrap</title>
+    <title>Sign up</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

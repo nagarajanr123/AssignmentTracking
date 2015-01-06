@@ -41,34 +41,3 @@ Insert into Instructor_Master
 (insid,userid,password,firstname,lastname,Addressline1,Addressline2,City,State,Zip,Country,Active)
 values
 (13,'admin','admin','nagarajan','rangarajan','23 xyz street','test road','Chennai','TamilNadu','104334','India,'A')
-=====================================================================================================================
-Create Table Student_Master (
-id MEDIUMINT NOT NULL AUTO_INCREMENT,
-insid MEDIUMINT ,
-userid char(20) not null unique,
-Password char(20) not null,
-FirstName char(30) not null,
-LastName char(30) not null,
-AddressLine1 char(30) not null,
-AddressLine2 char(30) not null,
-City char(20) not null,
-State char(20) not null,
-Zip char(10) not null ,
-Country char(30) not null,
-Remarks TEXT,
-Active  char(1),
-PRIMARY KEY (id),
-FOREIGN KEY (insid) REFERENCES Institution_Master(id)
-)
-=========================================================================================================================
-Create Table Subject_Master (
-id MEDIUMINT NOT NULL AUTO_INCREMENT,
-insid MEDIUMINT ,
-SubjectName char(30) not null unique,
-Remarks TEXT,
-Active  char(1),
-PRIMARY KEY (id),
-FOREIGN KEY (insid) REFERENCES Institution_Master(id)
-)
-
-

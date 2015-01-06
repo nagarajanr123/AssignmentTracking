@@ -1,3 +1,9 @@
+<?php
+include('classes/institutionmaster.php');
+include('classes/loginmaster.php');
+$lm=new LoginMaster();
+$lm->LandingPage();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

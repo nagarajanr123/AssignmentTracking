@@ -1,34 +1,9 @@
 <?php
-include('classes/institutionmaster.php');
 include('classes/loginmaster.php');
 $lm=new LoginMaster();
-$lm->LandingPage();
-$im=new InstitutionMaster();
-$instlist=$im->GetInstitutionList();
-$username='';
-$pwd='';
-$error=false;
-if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
-{
-	$username=$_POST["txtUserName"];
-	$pwd=$_POST["txtPassword"];
-	$institute=$_POST["selinstitute"];
-	$usertype=$_POST["selusertype"];
-	$result=$lm->Login($username,$pwd,$institute,$usertype);
-	if(!$result) {
-	 	$error=true; 
-		
-	}
-	else
-	{
-		$lm->LandingPage();
-
-	}
-		
-}	
-
-
+$lm->CheckPermission('Admin');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,7 +14,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Login</title>
+    <title>Admin</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -80,59 +55,27 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
 
 	<div class="panel panel-success">
 	<div class="panel-heading">
-	    <h3 class="panel-title">Login</h3>
-	</div>
-<?php
-if ($error)
-{
-
-	echo "<h3 style='color: #ff0000;'> Invalid Credentials, Please try again...</h3>";
-
-}
-
-?>
-
-<div class="panel-body">
-	<form class="form-horizontal" method="post" action="login.php" >
-	  <div class="form-group">
-	    <label for="txtName">User Name:</label>
-	    <input  class="form-control" name="txtUserName" placeholder="User Name" maxlength="30" value="<?php echo $username; ?>" required>
-	  </div>
-  <div class="form-group">
-    <label for="txtAdminPassword">Password:</label>
-    <input  class="form-control" name="txtPassword" placeholder="Password" maxlength="20" type="password" required>
-  </div>
-
- <div class="form-group">
-  <label for="usertpe">Select UserType:</label>
-  <select class="form-control" name="selusertype">
-    <option>Admin</option>
-    <option>Instructor</option>
-    <option>Student</option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label for="txtinstitute">Select Institution:</label>
-  <select class="form-control" name="selinstitute">
-<?php
-
-foreach ($instlist as $value) {
-     echo "<option>" . $value . "</option>";
-}
-?>
-    
-  </select>
-</div>
-
-<br>
-  <button type="submit" class="btn btn-default">Submit</button>
-	</form>    		
-
-</div>
-
+	    <h3 class="panel-title">Master Data</h3>
+	    <br>
+	   <ul class="nav nav-pills">
+	  	<li role="presentation" class="active"><a href="instructormaster.php">Instructor <br> Master</a></li>
+		<li role="presentation" class="active"><a href="#">Student <br> Master</a></li>
+		<li role="presentation" class="active"><a href="#">Subject <br> Master</a></li>
+	   </ul>
 
 	</div>
+	<br>
+	<div class="panel-heading">
+	    <h3 class="panel-title">Link Data</h3>
+	    <br>
+	   <ul class="nav nav-pills">
+	  	<li role="presentation" class="active"><a href="#">Subject and Instructor</a></li>
+		<li role="presentation" class="active"><a href="#">Subject and Student</a></li>
+	   </ul>
+
+	</div>
+
+	
 
     </div>      
 

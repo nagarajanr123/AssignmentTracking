@@ -1,4 +1,16 @@
 <?php
+
+include('classes/loginmaster.php');
+$im=new LoginMaster();
+//$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');
+//echo $im->Login("admin","admin","American Institute","Admin");
+//$im->LandingPage();
+$im->ResetSession();
+// $im->SimpleEcho();
+echo "here";
+
+
+/*
 include('classes/institutionmaster.php');
 $im=new InstitutionMaster();
 //$im->InsertRecord('test','test','test','test','test','test','test','test','test','A');
@@ -7,7 +19,7 @@ $im->GetInstitutionList();
 echo "here";
 
 
-/*
+
 include('classes/dbparent.php');
 $db= new DBParent();
 $conn  = $db->CreateDBConnection();
