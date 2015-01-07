@@ -1,10 +1,10 @@
 <?php
 include('classes/loginmaster.php');
-include('classes/instructormaster.php');
+include('classes/subjectmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission($lm->GetUserType());
-$im=new StudentMaster();
-$ilist=$im->GetStudentList($lm->GetInstituteID());
+$im=new SubjectMaster();
+$ilist=$im->GetSubjectList($lm->GetInstituteID());
 $count=0;
 ?>
 
@@ -61,9 +61,9 @@ $count=0;
 
 	<div class="panel panel-success">
 	<div class="panel-heading contains-buttons">
-	    <h3 class="panel-title">Student Master </h3>
+	    <h3 class="panel-title">Subject Master </h3>
 		<div class="btn-group pull-right">
-		<a href="studentadd.php" class="btn btn-default btn-sm" >Add New Student</a>
+		<a href="subjectadd.php" class="btn btn-default btn-sm" >Add New Subject</a>
 		
 		</div>
 	 </div>
@@ -76,9 +76,7 @@ $count=0;
         <thead>
             <tr>
                 <th>Row</th>
-                <th>UserID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Subject</th>
                 <th>Active</th>
                 <th>Action</th>
             </tr>
@@ -91,10 +89,8 @@ foreach ($ilist as $value) { $count++; ?>
             <tr>
                 <td><?php echo $count; ?></td>
                 <td><?php echo $value[0]; ?></td>
-                <td><?php echo $value[1]; ?></td>
-                <td><?php echo $value[2]; ?></td>
-		<td>&nbsp;&nbsp;<?php echo $value[3]; ?></td>
-		<td><a href="studentadd.php?id=<?php echo $value[4]; ?>" class="btn btn-info ">Modify</a></td>
+                <td>&nbsp;&nbsp;<?php echo $value[1]; ?></td>
+		<td><a href="subjectadd.php?id=<?php echo $value[2]; ?>" class="btn btn-info ">Modify</a></td>
             </tr>
         </tbody>
 <?php

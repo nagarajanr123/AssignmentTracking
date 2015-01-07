@@ -4,7 +4,7 @@ include('classes/studentmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission($lm->GetUserType());
 $im=new StudentMaster();
-$ilist=$im->GetInstructorList($lm->GetInstituteID());
+$ilist=$im->GetStudentList($lm->GetInstituteID());
 $count=0;
 ?>
 

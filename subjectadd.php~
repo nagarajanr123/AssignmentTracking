@@ -1,9 +1,9 @@
 <?php
  include('classes/loginmaster.php');
-include('classes/studentmaster.php');
+include('classes/subjectmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission($lm->GetUserType());
-$im=new StudentMaster();
+$im=new SubjectMaster();
 $uid='';
 if(isset($_GET['id'])) 
 {
@@ -56,19 +56,11 @@ if(isset($_GET['id']))
       <div class="container theme-showcase" role="main">
          <div class="panel panel-success">
             <div class="panel-heading">
-               <h3 class="panel-title">Add/Modify Student</h3>
+               <h3 class="panel-title">Add/Modify Subject</h3>
             </div>
             <?php
 	       $username='';
-               $firstname='';
-               $lastname='';
-               $add1='';
-               $add2='';
-               $city='';
-               $state='';
-               $zip='';
-               $country='';
-               $pwd='';
+               $subjectname='';
 	       $remarks='';
                $active='';
                $activedb='';
@@ -77,19 +69,11 @@ if(isset($_GET['id']))
 		if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' && $uid!='')
 		{
 		  
-		  $res=$im->GetStudent($uid,$lm->GetInstituteID());
+		  $res=$im->GetSubject($uid,$lm->GetInstituteID());
 		    
-		   $username=$res[0][0];
-               	   $firstname=$res[0][1];
-                   $lastname=$res[0][2];
-                   $add1=$res[0][3];
-                   $add2=$res[0][4];
-                   $city=$res[0][5];
-                   $state=$res[0][6];
-                   $zip=$res[0][7];
-                   $country=$res[0][8];
-	           $remarks=$res[0][9];
-                   $active=$res[0][10];
+		   $subjectname=$res[0][0];
+               	   $remarks=$res[0][1];
+                   $active=$res[0][2];
 		   if($active=='A')
 		   {
 			$active='checked';
@@ -101,17 +85,8 @@ if(isset($_GET['id']))
                
                {
                
-               	$username=$_POST["txtUserName"];
-                $lastname=$_POST["txtLastName"];
-               	$firstname=$_POST["txtFirstName"];
+               	$subjectname=$_POST["txtSubjectName"];
                	$remarks=$_POST["txtRemarks"];
-               	$add1=$_POST["txtAddressLine1"];
-               	$add2=$_POST["txtAddressLine2"];
-               	$city=$_POST["txtCity"];
-               	$state=$_POST["txtState"];
-               	$zip=$_POST["txtZip"];
-               	$country=$_POST["txtCountry"];
-               	$pwd=$_POST["txtPassword"];
                	$uid=$_POST["uid"];
                	if (isset($_POST["chkActive"])) {
                
@@ -124,14 +99,12 @@ if(isset($_GET['id']))
 		{
 
  	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
-	               	$res=$im->InsertRecord($lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$adresd1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+	               	$res=$im->InsertRecord($lm->GetInstituteID(),$subjectname,$remarks,$activedb);
 		}
 		else
 		{
 	//		$id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
-			$res=$im->UpdateRecord($uid,$lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$res=$im->UpdateRecord($uid,$lm->GetInstituteID(),$subjectname,$remarks,$activedb);
 
 		}
                
@@ -160,7 +133,7 @@ if(isset($_GET['id']))
                <div class="panel panel-success">
          	   <ul class="nav nav-pills">
 		<?php if ($uid=='') { ?>
-	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Instructor</a></li>
+	  	<li role="presentation" class="active"><a href="subjectadd.php">Add One More Subject</a></li>
 		<?php } ?>
 		&nbsp;&nbsp;
 		<li role="presentation" class="active"><a href="adminlandingpage.php">Home</a></li>
@@ -182,7 +155,7 @@ if(isset($_GET['id']))
                
                	{
                
-               		echo "<h3 style='color: #FF0000;'> User Name  already exist or Invalid data, Please try again...</h3>";
+               		echo "<h3 style='color: #FF0000;'> Subject  already exist or Invalid data, Please try again...</h3>";
                
                	}
                
@@ -192,70 +165,14 @@ if(isset($_GET['id']))
                
                ?>
             <div class="panel-body" >
-               <form class="form-horizontal"  method="post" action="studentadd.php" >
+               <form class="form-horizontal"  method="post" action="subjectadd.php" >
                  <div class="form-group">
-                     <label for="txtUserName" class="col-sm-2 control-label">User Name:</label>
+                     <label for="txtSubjectName" class="col-sm-2 control-label">Subject Name:</label>
                      <div class="col-sm-10">
-                        <input  class="form-control" name="txtUserName" placeholder="User Name" maxlength="20"value="<?php echo $username; ?>" required>
+                        <input  class="form-control" name="txtSubjectName" placeholder="User Name" maxlength="30"value="<?php echo $subjectname; ?>" required>
                      </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtPassword" class="col-sm-2 control-label">Password:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtPassword" placeholder="Password" maxlength="20" type="password" required>
-                     </div>
-                  </div>
-                 <div class="form-group">
-                     <label for="txtFirstName" class="col-sm-2 control-label">First Name:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtFirstName" placeholder="User Name" maxlength="30"value="<?php echo $firstname; ?>" required>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtLastName" class="col-sm-2 control-label">Last Name:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtLastName" placeholder="User Name" maxlength="30"value="<?php echo $lastname; ?>" required>
-                     </div>
-
                   </div>
 		  <input type="hidden" name="uid" value="<?php echo $uid; ?>"/>
-                  <div class="form-group">
-                     <label for="txtAddressLine1" class="col-sm-2 control-label">Address Line 1:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtAddressLine1" placeholder="Address Line 1" maxlength="30" value="<?php echo $add1; ?>" required />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtAddressLine2" class="col-sm-2 control-label">Address Line 2: </label> 
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtAddressLine2" placeholder="Address Line 2" maxlength="30" value="<?php echo $add2; ?>" required />
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtcity" class="col-sm-2 control-label">City:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtCity" placeholder="City" maxlength="20" value="<?php echo $city; ?>" required/>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtState" class="col-sm-2 control-label">State:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtState" placeholder="State" maxlength="20" value="<?php echo $state; ?>" required>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtZip" class="col-sm-2 control-label">Zip Code:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtZip" placeholder="Zip Code" maxlength="10" value="<?php echo $zip; ?>" required>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <label for="txtCountry" class="col-sm-2 control-label">Country:</label>
-                     <div class="col-sm-10">
-                        <input  class="form-control" name="txtCountry" placeholder="Country:" maxlength="30" value="<?php echo $country; ?>" required>
-                     </div>
-                  </div>
-
 		<div class="form-group">
 		  <label for="txtRemarks" class="col-sm-2 control-label">Comment:</label>
 		  <div class="col-sm-10">

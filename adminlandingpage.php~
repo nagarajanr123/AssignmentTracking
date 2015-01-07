@@ -61,7 +61,7 @@ $lm->CheckPermission('Admin');
 	    <br>
 	   <ul class="nav nav-pills">
 	  	<li role="presentation" class="active"><a href="instructormaster.php">Instructor <br> Master</a></li>
-		<li role="presentation" class="active"><a href="studentmaster">Student <br> Master</a></li>
+		<li role="presentation" class="active"><a href="studentmaster.php">Student <br> Master</a></li>
 		<li role="presentation" class="active"><a href="#">Subject <br> Master</a></li>
 	   </ul>
 
