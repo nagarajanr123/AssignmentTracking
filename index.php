@@ -44,7 +44,7 @@ $lm->LandingPage();
           <ul class="nav navbar-nav">
             <li class="active"><a href="login.php">Login</a></li>
             <li><a href="signup.php">Signup</a></li>
-            <li><a href="">About</a></li>
+            <li><a href="about.php">About</a></li>
           </ul>
         </div><!--/.nav-collapse -->
        <h1 style="color: #00ff00;"> Assignment and Reference Tracking Aid for Students </h1>

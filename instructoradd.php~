@@ -56,7 +56,7 @@ if(isset($_GET['id']))
       <div class="container theme-showcase" role="main">
          <div class="panel panel-success">
             <div class="panel-heading">
-               <h3 class="panel-title">Add new Instructor</h3>
+               <h3 class="panel-title">Add/Modify Instructor</h3>
             </div>
             <?php
 	       $username='';

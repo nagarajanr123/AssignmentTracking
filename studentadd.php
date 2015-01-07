@@ -1,9 +1,9 @@
 <?php
  include('classes/loginmaster.php');
-include('classes/instructormaster.php');
+include('classes/studentmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission($lm->GetUserType());
-$im=new InstructorMaster();
+$im=new StudentMaster();
 $uid='';
 if(isset($_GET['id'])) 
 {
@@ -56,7 +56,7 @@ if(isset($_GET['id']))
       <div class="container theme-showcase" role="main">
          <div class="panel panel-success">
             <div class="panel-heading">
-               <h3 class="panel-title">Add/Modify Instructor</h3>
+               <h3 class="panel-title">Add/Modify Student</h3>
             </div>
             <?php
 	       $username='';
@@ -160,7 +160,7 @@ if(isset($_GET['id']))
                <div class="panel panel-success">
          	   <ul class="nav nav-pills">
 		<?php if ($uid=='') { ?>
-	  	<li role="presentation" class="active"><a href="instructoradd.php">Add One More Instructor</a></li>
+	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Instructor</a></li>
 		<?php } ?>
 		&nbsp;&nbsp;
 		<li role="presentation" class="active"><a href="adminlandingpage.php">Home</a></li>
@@ -192,7 +192,7 @@ if(isset($_GET['id']))
                
                ?>
             <div class="panel-body" >
-               <form class="form-horizontal"  method="post" action="instructoradd.php" >
+               <form class="form-horizontal"  method="post" action="studentadd.php" >
                  <div class="form-group">
                      <label for="txtUserName" class="col-sm-2 control-label">User Name:</label>
                      <div class="col-sm-10">

@@ -125,7 +125,10 @@ if ($error)
 <?php
 
 foreach ($instlist as $value) {
-     echo "<option>" . $value . "</option>";
+     if ($value !="")
+     {
+     	echo "<option>" . $value . "</option>";
+     }
 }
 ?>
     

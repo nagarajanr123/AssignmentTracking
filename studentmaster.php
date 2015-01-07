@@ -1,8 +1,11 @@
 <?php
 include('classes/loginmaster.php');
+include('classes/studentmaster.php');
 $lm=new LoginMaster();
-$lm->CheckPermission('Admin');
-
+$lm->CheckPermission($lm->GetUserType());
+$im=new StudentMaster();
+$ilist=$im->GetInstructorList($lm->GetInstituteID());
+$count=0;
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +18,7 @@ $lm->CheckPermission('Admin');
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Admin</title>
+    <title>Instructor Master</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -46,40 +49,61 @@ $lm->CheckPermission('Admin');
             <li class="active"><a href="index.php">Home</a></li>
             <li class="active"><a href="logout.php">Logout</a></li>
           </ul>
-	  <p class="navbar-text"> <?php echo $lm->GetInstituteName(); ?> &nbsp;&nbsp;&nbsp;:Logged in as <?php echo $lm->GetUsername(); ?></p> 
+	<p class="navbar-text"> <?php echo $lm->GetInstituteName(); ?> &nbsp;&nbsp;&nbsp;:Logged in as <?php echo $lm->GetUsername(); ?></p> 
         </div><!--/.nav-collapse -->
 
        <h1 style="color: #00ff00;"> Assignment and Reference Tracking Aid for Students </h1>
       
       </div>
     </nav>
-   <div class="container theme-showcase" role="main">
+
+<div class="container theme-showcase" role="main">
 
 	<div class="panel panel-success">
-	<div class="panel-heading">
-	    <h3 class="panel-title">Master Data</h3>
-	    <br>
-	   <ul class="nav nav-pills">
-	  	<li role="presentation" class="active"><a href="instructormaster.php">Instructor <br> Master</a></li>
-		<li role="presentation" class="active"><a href="studentmaster.php">Student <br> Master</a></li>
-		<li role="presentation" class="active"><a href="#">Subject <br> Master</a></li>
-	   </ul>
-
-	</div>
-	<br>
-	<div class="panel-heading">
-	    <h3 class="panel-title">Link Data</h3>
-	    <br>
-	   <ul class="nav nav-pills">
-	  	<li role="presentation" class="active"><a href="#">Subject and Instructor</a></li>
-		<li role="presentation" class="active"><a href="#">Subject and Student</a></li>
-	   </ul>
-
-	</div>
-
+	<div class="panel-heading contains-buttons">
+	    <h3 class="panel-title">Student Master </h3>
+		<div class="btn-group pull-right">
+		<a href="studentadd.php" class="btn btn-default btn-sm" >Add New Student</a>
+		
+		</div>
+	 </div>
+	
 	
 
-    </div>      
+<div class="panel-body">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Row</th>
+                <th>UserID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Active</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+foreach ($ilist as $value) { $count++; ?>
+
+
+            <tr>
+                <td><?php echo $count; ?></td>
+                <td><?php echo $value[0]; ?></td>
+                <td><?php echo $value[1]; ?></td>
+                <td><?php echo $value[2]; ?></td>
+		<td>&nbsp;&nbsp;<?php echo $value[3]; ?></td>
+		<td><a href="studentadd.php?id=<?php echo $value[4]; ?>" class="btn btn-info ">Modify</a></td>
+            </tr>
+        </tbody>
+<?php
+}
+?>
+    </table>
+    
+</div>
+</div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
