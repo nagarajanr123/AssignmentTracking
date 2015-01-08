@@ -125,7 +125,7 @@ if(isset($_GET['id']))
 
  	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
 	               	$res=$im->InsertRecord($lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$adresd1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
 		}
 		else
 		{

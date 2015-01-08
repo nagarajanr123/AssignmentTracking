@@ -13,6 +13,8 @@ Active  char(1),
 PRIMARY KEY (id)
 )
 
+
+
 Insert into Institution_Master
 (name,AddressLine1,Addressline2,City,State,Zip,Country,AdminUser,Password)
 values
@@ -21,7 +23,7 @@ values
 Create Table Instructor_Master (
 id MEDIUMINT NOT NULL AUTO_INCREMENT,
 insid MEDIUMINT ,
-userid char(20) not null unique,
+userid char(20) not null,
 Password char(20) not null,
 FirstName char(30) not null,
 LastName char(30) not null,
@@ -37,7 +39,65 @@ PRIMARY KEY (id),
 FOREIGN KEY (insid) REFERENCES Institution_Master(id)
 )
 
+CREATE UNIQUE INDEX Instructor_Masteruniqueindex ON Instructor_Master(userid,insid);
+==============================================================================================================================
+
+
 Insert into Instructor_Master
 (insid,userid,password,firstname,lastname,Addressline1,Addressline2,City,State,Zip,Country,Active)
 values
 (13,'admin','admin','nagarajan','rangarajan','23 xyz street','test road','Chennai','TamilNadu','104334','India,'A')
+=====================================================================================================================
+Create Table Student_Master (
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+insid MEDIUMINT ,
+userid char(20) not null ,
+Password char(20) not null,
+FirstName char(30) not null,
+LastName char(30) not null,
+AddressLine1 char(30) not null,
+AddressLine2 char(30) not null,
+City char(20) not null,
+State char(20) not null,
+Zip char(10) not null ,
+Country char(30) not null,
+Remarks TEXT,
+Active  char(1),
+PRIMARY KEY (id),
+FOREIGN KEY (insid) REFERENCES Institution_Master(id)
+)
+
+CREATE UNIQUE INDEX Student_Masteruniqueindex ON Student_Master(userid,insid);
+
+
+=========================================================================================================================
+Create Table Subject_Master (
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+insid MEDIUMINT ,
+SubjectName char(30) not null,
+Remarks TEXT,
+Active  char(1),
+PRIMARY KEY (id),
+FOREIGN KEY (insid) REFERENCES Institution_Master(id)
+)
+
+CREATE UNIQUE INDEX Subject_Masteruniqueindex ON Subject_Master(SubjectName,insid);
+
+====================================================================================
+Create Table Subject_Instructor_Link(
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+userid MEDIUMINT,
+subjectid MEDIUMINT,
+insid MEDIUMINT,
+PRIMARY KEY (id),
+FOREIGN KEY (insid) REFERENCES Institution_Master(id),
+FOREIGN KEY (userid) REFERENCES Instructor_Master(id),
+FOREIGN KEY (subjectid) REFERENCES Subject_Master(id)
+)
+
+CREATE UNIQUE INDEX s_i_l_uniqueindex ON Subject_Instructor_Link(userid,subjectid,insid);
+==============================================================================================================================
+
+
+
+

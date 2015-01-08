@@ -125,7 +125,7 @@ if(isset($_GET['id']))
 
  	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
 	               	$res=$im->InsertRecord($lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$adresd1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
 		}
 		else
 		{
@@ -160,7 +160,7 @@ if(isset($_GET['id']))
                <div class="panel panel-success">
          	   <ul class="nav nav-pills">
 		<?php if ($uid=='') { ?>
-	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Instructor</a></li>
+	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Student</a></li>
 		<?php } ?>
 		&nbsp;&nbsp;
 		<li role="presentation" class="active"><a href="adminlandingpage.php">Home</a></li>

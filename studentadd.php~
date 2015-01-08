@@ -77,7 +77,7 @@ if(isset($_GET['id']))
 		if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' && $uid!='')
 		{
 		  
-		  $res=$im->GetInstructor($uid,$lm->GetInstituteID());
+		  $res=$im->GetStudent($uid,$lm->GetInstituteID());
 		    
 		   $username=$res[0][0];
                	   $firstname=$res[0][1];
@@ -160,7 +160,7 @@ if(isset($_GET['id']))
                <div class="panel panel-success">
          	   <ul class="nav nav-pills">
 		<?php if ($uid=='') { ?>
-	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Instructor</a></li>
+	  	<li role="presentation" class="active"><a href="studentadd.php">Add One More Student</a></li>
 		<?php } ?>
 		&nbsp;&nbsp;
 		<li role="presentation" class="active"><a href="adminlandingpage.php">Home</a></li>
