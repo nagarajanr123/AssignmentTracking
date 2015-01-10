@@ -68,7 +68,7 @@ class InstructorMaster extends DBParent
     {
 	$conn  = $this->CreateDBConnection();
 
-	$query= "select firstname,lastname,active,id, (select id from Subject_Instructor_Link where
+	$query= "select userid,firstname,lastname,active,id, (select id from Subject_Instructor_Link where
 		 subjectid=" . $subjectid . " and insid=" . $insid . " and userid=a.id) as Enabled
   	         from Instructor_Master a where insid ='" . $insid . "' order by upper(firstname)";
 	$result=$conn->query($query);

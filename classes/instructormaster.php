@@ -70,7 +70,8 @@ class InstructorMaster extends DBParent
 
 	$query= "select userid,firstname,lastname,active,id, (select id from Subject_Instructor_Link where
 		 subjectid=" . $subjectid . " and insid=" . $insid . " and userid=a.id) as Enabled
-  	         from Instructor_Master a where insid ='" . $insid . "' order by upper(firstname)";
+  	         from Instructor_Master a where insid =" . $insid . " order by upper(firstname)";
+	
 	$result=$conn->query($query);
 	$namelist=array();
 	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
