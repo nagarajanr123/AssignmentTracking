@@ -64,6 +64,22 @@ class StudentMaster extends DBParent
 	return $namelist;
 
     }
+   public function GetStudentSubject($insid,$subjectid)
+    {
+	$conn  = $this->CreateDBConnection();
+
+	$query= "select userid,firstname,lastname,active,id, (select id from Subject_Student_Link where
+		 subjectid=" . $subjectid . " and insid=" . $insid . " and userid=a.id) as Enabled
+  	         from Student_Master a where insid =" . $insid . " order by upper(firstname)";
+	
+	$result=$conn->query($query);
+	$namelist=array();
+	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    		$namelist[]= array($row[0],$row[1],$row[2],$row[3],$row[4]);
+	}
+	return $namelist;
+
+   }
    public function GetStudent($id,$insid)
     {
 	$conn  = $this->CreateDBConnection();

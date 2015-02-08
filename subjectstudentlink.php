@@ -1,23 +1,20 @@
 <?php
 include('classes/loginmaster.php');
 include('classes/subjectmaster.php');
-include('classes/instructormaster.php');
+include('classes/studentmaster.php');
 $lm=new LoginMaster();
 $lm->CheckPermission($lm->GetUserType());
-$im=new InstructorMaster();
+$im=new StudentMaster();
 $sm=new SubjectMaster();
 $ilist=$sm->GetSubjectList($lm->GetInstituteID());
 $count=0;
 $selectedsubjectid='';
 if (strtoupper($_SERVER['REQUEST_METHOD']))
 {
-
 	if(isset($_POST['selsubject'])) 
 	{
 		$selectedsubjectid=$_POST["selsubject"];
 	}
-
-
 }
 
 ?>
@@ -71,12 +68,12 @@ if (strtoupper($_SERVER['REQUEST_METHOD']))
       </div>
     </nav>
 
-<form class="form-inline"  method="post" action="subjectinstructorlink.php" >
+<form class="form-inline"  method="post" action="subjectstudentlink.php" >
 <div class="container theme-showcase" role="main">
 
 	<div class="panel panel-success">
 	<div class="panel-heading contains-buttons">
-	    <h3 class="panel-title">Subject  Instructor Link</h3>
+	    <h3 class="panel-title">Subject Student Link</h3>
 		<div class="btn-group pull-right">
 		
 		</div>
@@ -119,7 +116,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']))
 <?php
 if ($selectedsubjectid!='')
 {
-	$inlist=$im->GetInstructorSubject($lm->GetInstituteID(),$selectedsubjectid);
+	$inlist=$im->GetStudentSubject($lm->GetInstituteID(),$selectedsubjectid);
 ?>
 
 

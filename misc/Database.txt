@@ -103,4 +103,21 @@ select firstname, (select id from Subject_Instructor_Link where
      Instructor_Master a where insid=17;
 
 
+--------------------------------------------------------------------------------------------------------------------------------
+Create Table Subject_Student_Link(
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+userid MEDIUMINT,
+subjectid MEDIUMINT,
+insid MEDIUMINT,
+PRIMARY KEY (id),
+FOREIGN KEY (insid) REFERENCES Institution_Master(id),
+FOREIGN KEY (userid) REFERENCES Student_Master(id),
+FOREIGN KEY (subjectid) REFERENCES Subject_Master(id)
+)
+
+CREATE UNIQUE INDEX s_s_l_uniqueindex ON Subject_Student_Link(userid,subjectid,insid);
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
 

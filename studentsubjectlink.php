@@ -1,7 +1,25 @@
 <?php
 include('classes/loginmaster.php');
+include('classes/subjectmaster.php');
+include('classes/studentmaster.php');
 $lm=new LoginMaster();
-$lm->CheckPermission('Admin');
+$lm->CheckPermission($lm->GetUserType());
+$im=new StudentMaster();
+$sm=new SubjectMaster();
+$ilist=$im->GetStudentList($lm->GetInstituteID());
+$count=0;
+$selectedstudentid='';
+if (strtoupper($_SERVER['REQUEST_METHOD']))
+{
+
+
+	if(isset($_POST['selstudent'])) 
+	{
+		$selectedstudentid=$_POST["selstudent"];
+	}
+
+
+}
 
 ?>
 
@@ -15,7 +33,7 @@ $lm->CheckPermission('Admin');
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Admin</title>
+    <title>Subject Instructor Link</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -46,43 +64,99 @@ $lm->CheckPermission('Admin');
             <li class="active"><a href="index.php">Home</a></li>
             <li class="active"><a href="logout.php">Logout</a></li>
           </ul>
-	  <p class="navbar-text"> <?php echo $lm->GetInstituteName(); ?> &nbsp;&nbsp;&nbsp;:Logged in as <?php echo $lm->GetUsername(); ?></p> 
+	<p class="navbar-text"> <?php echo $lm->GetInstituteName(); ?> &nbsp;&nbsp;&nbsp;:Logged in as <?php echo $lm->GetUsername(); ?></p> 
         </div><!--/.nav-collapse -->
 
        <h1 style="color: #00ff00;"> Assignment and Reference Tracking Aid for Students </h1>
       
       </div>
     </nav>
-   <div class="container theme-showcase" role="main">
+
+<form class="form-inline"  method="post" action="studentsubjectlink.php" >
+<div class="container theme-showcase" role="main">
 
 	<div class="panel panel-success">
-	<div class="panel-heading">
-	    <h3 class="panel-title">Master Data</h3>
-	    <br>
-	   <ul class="nav nav-pills">
-	  	<li role="presentation" class="active"><a href="instructormaster.php">Instructor <br> Master</a></li>
-		<li role="presentation" class="active"><a href="studentmaster.php">Student <br> Master</a></li>
-		<li role="presentation" class="active"><a href="subjectmaster.php">Subject <br> Master</a></li>
-	   </ul>
-
-	</div>
-	<br>
-	<div class="panel-heading">
-	    <h3 class="panel-title">Link Data</h3>
-	    <br>
-	   <ul class="nav nav-pills">
-	  	<li role="presentation" class="active"><a href="subjectinstructorlink.php">Subject and Instructor</a></li>
-		<li role="presentation" class="active"><a href="#">Subject and Student</a></li>
-		<li role="presentation" class="active"><a href="#">Student and Subject</a></li>
-		<li role="presentation" class="active"><a href="#">Instructor and Subject</a></li>
-	   </ul>
-
-	</div>
-
+	<div class="panel-heading contains-buttons">
+	    <h3 class="panel-title">Student Subject Link</h3>
+		<div class="btn-group pull-right">
+		
+		</div>
+	 </div>
+	
 	
 
-    </div>      
+<div class="panel-body">
 
+  <div class="container">
+
+
+		<label class="col-sm-1 control-label" for="selstudent">Student:</label>
+  		<select class="form-control" name="selstudent">
+		<?php
+		
+		foreach ($ilist as $value) {
+			
+			if($value[4]==$selectedstudentid)
+			{
+
+			     	echo '<option selected value="' . $value[4] .'" >' . $value[1] . " " . $value[2] . "</option>";
+			}
+			else
+			{
+				echo '<option value="' . $value[4] .'" >' . $value[1] . " " . $value[2] . "</option>";
+
+			}
+
+
+		}
+	?>
+	<input type="submit" Value="View" class="btn btn-default"/>	  
+</div>
+
+
+</div>
+</div>
+
+<?php
+if ($selectedstudentid!='')
+{
+	$inlist=$sm->GetSubjectStudent($lm->GetInstituteID(),$selectedstudentid);
+?>
+
+
+
+<div >
+   <table class="table">
+        <thead>
+            <tr>
+		 <th>Row</th>
+                <th>Subject</th>
+                <th>Enabled</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+foreach ($inlist as $value) { $count++; ?>
+
+
+            <tr>
+                <td><?php echo $count; ?></td>
+                <td><?php echo $value[0]; ?></td>
+		<td><div class="checkbox">
+		      <input type="checkbox"> 
+		    </div>
+  	 </td>
+            </tr>
+        </tbody>
+<?php
+}
+?>
+    </table>
+</div>
+<?php
+}
+?>
+</form>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

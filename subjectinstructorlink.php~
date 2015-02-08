@@ -12,7 +12,10 @@ $selectedsubjectid='';
 if (strtoupper($_SERVER['REQUEST_METHOD']))
 {
 
-	$selectedsubjectid=$_POST["selsubject"];
+	if(isset($_POST['selsubject'])) 
+	{
+		selectedsubjectid=$_POST["selsubject"];
+	}
 
 
 }
@@ -114,7 +117,9 @@ if (strtoupper($_SERVER['REQUEST_METHOD']))
 </div>
 
 <?php
-$inlist=$im->GetInstructorSubject($lm->GetInstituteID(),$selectedsubjectid);
+if ($selectedsubjectid!='')
+{
+	$inlist=$im->GetInstructorSubject($lm->GetInstituteID(),$selectedsubjectid);
 ?>
 
 
@@ -151,6 +156,9 @@ foreach ($inlist as $value) { $count++; ?>
 ?>
     </table>
 </div>
+<?php
+}
+?>
 </form>
     <!-- Bootstrap core JavaScript
     ================================================== -->

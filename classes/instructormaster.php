@@ -64,23 +64,7 @@ class InstructorMaster extends DBParent
 	return $namelist;
 
     }
-   public function GetInstructorSubject($insid,$subjectid)
-    {
-	$conn  = $this->CreateDBConnection();
-
-	$query= "select userid,firstname,lastname,active,id, (select id from Subject_Instructor_Link where
-		 subjectid=" . $subjectid . " and insid=" . $insid . " and userid=a.id) as Enabled
-  	         from Instructor_Master a where insid =" . $insid . " order by upper(firstname)";
-	
-	$result=$conn->query($query);
-	$namelist=array();
-	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-    		$namelist[]= array($row[0],$row[1],$row[2],$row[3],$row[4]);
-	}
-	return $namelist;
-
-   }
-   public function GetInstructor($id,$insid)
+      public function GetInstructor($id,$insid)
     {
 	$conn  = $this->CreateDBConnection();
 	$query= "select userid,firstname,lastname,Addressline1,Addressline2,city,state,zip,country,remarks,active from Instructor_Master where 		id =" . $id . " and insid =". $insid; 

@@ -58,6 +58,42 @@ class SubjectMaster extends DBParent
 	return $name;
 
     }
+
+   public function GetSubjectStudent($insid,$studentid)
+    {
+	$conn  = $this->CreateDBConnection();
+
+	$query= "select SubjectName, (select id from Subject_Student_Link where
+		 userid=" . $studentid . " and insid=" . $insid . " and subjectid=a.id) as Enabled
+  	         from Subject_Master a where insid =" . $insid . " order by upper(SubjectName)";
+	
+	$result=$conn->query($query);
+	$namelist=array();
+	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    		$namelist[]= array($row[0]);
+	}
+	return $namelist;
+
+   }
+
+   public function GetSubjectInstructor($insid,$instructorid)
+    {
+	$conn  = $this->CreateDBConnection();
+
+	$query= "select SubjectName, (select id from Subject_Instructor_Link where
+		 userid=" . $instructorid . " and insid=" . $insid . " and subjectid=a.id) as Enabled
+  	         from Subject_Master a where insid =" . $insid . " order by upper(SubjectName)";
+	
+	$result=$conn->query($query);
+	$namelist=array();
+	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+    		$namelist[]= array($row[0]);
+	}
+	return $namelist;
+
+   }
+
+
     public function SimpleEcho()
     {
   
