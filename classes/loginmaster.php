@@ -41,7 +41,7 @@ class LoginMaster extends DBParent
     			  session_start();
 			}
 			   $_SESSION['usertype']  = $usertype;
-			   $_SESSION['username']  = $userid;
+			   $_SESSION['username']  = $username;
 			   $_SESSION['institute'] = $institute;	
 			   $_SESSION['instituteid']=$row[3];
 			   $_SESSION['userid']=$row[2];
@@ -64,7 +64,7 @@ class LoginMaster extends DBParent
     			  session_start();
 			}
 			   $_SESSION['usertype']  = $usertype;
-			   $_SESSION['username']  = $userid;
+			   $_SESSION['username']  = $username;
 			   $_SESSION['institute'] = $institute;	
 			   $_SESSION['instituteid']=$row[3];
 			   $_SESSION['userid']=$row[2];
@@ -94,7 +94,7 @@ class LoginMaster extends DBParent
 		}
 		if ($_SESSION['usertype'] == "Instructor")
 		{
-			header("Location:instructorlandingpage.php");
+			header("Location:assignmentlist.php");
 			return;
 		}
 		if ($_SESSION['usertype'] == "Student")

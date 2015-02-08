@@ -4,11 +4,11 @@ class StudentMaster extends DBParent
 {
   // Instructor Master
     
-    public function InsertRecord($insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active)
+    public function InsertRecord($insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$active)
     {
 	$conn  = $this->CreateDBConnection();
 	$query='Insert into Student_Master
-		(insid,userid,password,firstname,lastname,Addressline1,Addressline2,City,State,Zip,Country,Remarks,Active)  
+		(insid,userid,password,firstname,lastname,Addressline1,Addressline2,City,State,Zip,Country,Remarks,email,Active)  
 		values (';
 	$values = "'" . $insid . "'," .
 			"'" .  $userid . "'," .
@@ -22,6 +22,7 @@ class StudentMaster extends DBParent
 			"'" .  $zip . "'," .
 			"'" .  $country . "'," .
 			"'" .  $remarks . "'," .
+			"'" .  $email . "'," .
 			"'" . $active ."')";
 	$query = $query . $values;
 	if (!$conn->query($query)) {
@@ -30,7 +31,7 @@ class StudentMaster extends DBParent
 	}
 	$conn->close();
     }
-    public function UpdateRecord($id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active)
+    public function UpdateRecord($id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$active)
     {
 	$conn  = $this->CreateDBConnection();
 	$query="Update Student_Master
@@ -45,6 +46,7 @@ class StudentMaster extends DBParent
 		 Zip =" . "'" . $zip . "',  
 		 Country =" . "'" . $country . "',  
 		 Remarks =" . "'" . $remarks . "',  
+		 email =" . "'" . $email . "',  
 		 Active = " . "'" . $active . "' where id=" . $id . " and insid =". $instid;  
 	if (!$conn->query($query)) {
 		
@@ -83,11 +85,11 @@ class StudentMaster extends DBParent
    public function GetStudent($id,$insid)
     {
 	$conn  = $this->CreateDBConnection();
-	$query= "select userid,firstname,lastname,Addressline1,Addressline2,city,state,zip,country,remarks,active from Student_Master where 		id =" . $id . " and insid =". $insid; 
+	$query= "select userid,firstname,lastname,Addressline1,Addressline2,city,state,zip,country,remarks,active,email from Student_Master where 		id =" . $id . " and insid =". $insid; 
 	$result=$conn->query($query);
 	$name=array();
 	while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
-    		$name[]= array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10]);
+    		$name[]= array($row[0],$row[1],$row[2],$row[3],$row[4],$row[5],$row[6],$row[7],$row[8],$row[9],$row[10],$row[11]);
 	}
 	return $name;
 

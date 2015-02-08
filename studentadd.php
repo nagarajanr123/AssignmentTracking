@@ -73,6 +73,7 @@ if(isset($_GET['id']))
                $active='';
                $activedb='';
                $success=false;
+	       $email='';
 	
 		if (strtoupper($_SERVER['REQUEST_METHOD']) == 'GET' && $uid!='')
 		{
@@ -90,6 +91,7 @@ if(isset($_GET['id']))
                    $country=$res[0][8];
 	           $remarks=$res[0][9];
                    $active=$res[0][10];
+		   $email=$res[0][11];
 		   if($active=='A')
 		   {
 			$active='checked';
@@ -112,6 +114,7 @@ if(isset($_GET['id']))
                	$zip=$_POST["txtZip"];
                	$country=$_POST["txtCountry"];
                	$pwd=$_POST["txtPassword"];
+		$email=$_POST["txtEmail"];
                	$uid=$_POST["uid"];
                	if (isset($_POST["chkActive"])) {
                
@@ -123,15 +126,15 @@ if(isset($_GET['id']))
 		if ($uid=='')
 		{
 
- 	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
+ 	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$active
 	               	$res=$im->InsertRecord($lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$activedb);
 		}
 		else
 		{
-	//		$id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
+	//		$id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$active
 			$res=$im->UpdateRecord($uid,$lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$activedb);
 
 		}
                
@@ -253,6 +256,13 @@ if(isset($_GET['id']))
                      <label for="txtCountry" class="col-sm-2 control-label">Country:</label>
                      <div class="col-sm-10">
                         <input  class="form-control" name="txtCountry" placeholder="Country:" maxlength="30" value="<?php echo $country; ?>" required>
+                     </div>
+                  </div>
+
+                 <div class="form-group">
+                     <label for="txtEmail" class="col-sm-2 control-label">Email:</label>
+                     <div class="col-sm-10">
+                        <input  class="form-control" name="txtEmail" placeholder="Email:" maxlength="50" value="<?php echo $email; ?>" required>
                      </div>
                   </div>
 

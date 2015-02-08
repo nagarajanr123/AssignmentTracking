@@ -71,6 +71,7 @@ if(isset($_GET['id']))
                $pwd='';
 	       $remarks='';
                $active='';
+	       $email='';
                $activedb='';
                $success=false;
 	
@@ -90,6 +91,7 @@ if(isset($_GET['id']))
                    $country=$res[0][8];
 	           $remarks=$res[0][9];
                    $active=$res[0][10];
+		   $email=$res[0][11];
 		   if($active=='A')
 		   {
 			$active='checked';
@@ -113,6 +115,7 @@ if(isset($_GET['id']))
                	$country=$_POST["txtCountry"];
                	$pwd=$_POST["txtPassword"];
                	$uid=$_POST["uid"];
+		$email=$_POST["txtEmail"];
                	if (isset($_POST["chkActive"])) {
                
                	    $active="checked";
@@ -125,13 +128,13 @@ if(isset($_GET['id']))
 
  	             //  $insid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
 	               	$res=$im->InsertRecord($lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$activedb);
 		}
 		else
 		{
 	//		$id,$instid,$userid,$password,$firstname,$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$active
 			$res=$im->UpdateRecord($uid,$lm->GetInstituteID(),$username,$pwd,$firstname,
-			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$activedb);
+			$lastname,$add1,$add2,$city,$state,$zip,$country,$remarks,$email,$activedb);
 
 		}
                
@@ -253,6 +256,12 @@ if(isset($_GET['id']))
                      <label for="txtCountry" class="col-sm-2 control-label">Country:</label>
                      <div class="col-sm-10">
                         <input  class="form-control" name="txtCountry" placeholder="Country:" maxlength="30" value="<?php echo $country; ?>" required>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="txtEmail" class="col-sm-2 control-label">Email:</label>
+                     <div class="col-sm-10">
+                        <input  class="form-control" name="txtEmail" placeholder="Country:" maxlength="50" value="<?php echo $email; ?>" required>
                      </div>
                   </div>
 

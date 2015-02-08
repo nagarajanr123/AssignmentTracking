@@ -50,7 +50,29 @@ class LoginMaster extends DBParent
     			
 		}
 	        break;
+		case "Student":
+		
 
+		$query= "select userid, password, id,insid from Student_Master  
+			where userid='". $username . "' and insid = (select id from Institution_Master where name='" . $institute . "')"; 
+		echo $query;
+		$result=$conn->query($query);
+		while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+		if ($row[0]==$username AND $row[1]==$password)
+			{
+			  if(!isset($_SESSION)){
+    			  session_start();
+			}
+			   $_SESSION['usertype']  = $usertype;
+			   $_SESSION['username']  = $userid;
+			   $_SESSION['institute'] = $institute;	
+			   $_SESSION['instituteid']=$row[3];
+			   $_SESSION['userid']=$row[2];
+			   $loggedin=true;
+			}
+    			
+		}
+	        break;
 
 	    default:
 	}
@@ -72,7 +94,7 @@ class LoginMaster extends DBParent
 		}
 		if ($_SESSION['usertype'] == "Instructor")
 		{
-			header("Location:instructorlandingpage.php");
+			header("Location:assignmentlist.php");
 			return;
 		}
 		if ($_SESSION['usertype'] == "Student")

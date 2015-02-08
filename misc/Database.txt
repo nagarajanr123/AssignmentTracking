@@ -118,6 +118,42 @@ FOREIGN KEY (subjectid) REFERENCES Subject_Master(id)
 CREATE UNIQUE INDEX s_s_l_uniqueindex ON Subject_Student_Link(userid,subjectid,insid);
 -------------------------------------------------------------------------------------------------------------------------------
 
+ALTER TABLE Instructor_Master
+ADD email char(50) 
+---------------------------------------------
 
-
-
+ALTER TABLE Student_Master
+ADD email char(50) 
+--------------------------------------------------------
+Create Table Assignment_Master(
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+Description char(200),
+startdate DateTime,
+enddate DateTime,
+createdate DateTime,
+insid MEDIUMINT,
+userid MEDIUMINT,
+subjectid MEDIUMINT,
+PRIMARY KEY (id),
+FOREIGN KEY (insid) REFERENCES Institution_Master(id),
+FOREIGN KEY (userid) REFERENCES Instructor_Master(id),
+FOREIGN KEY (subjectid) REFERENCES Subject_Master(id)
+)
+-------------------------------------------------------------
+Create Table Assignment_Log(
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+notes char(200),
+createdate DateTime,
+assignmentid MEDIUMINT,
+PRIMARY KEY (id),
+FOREIGN KEY (assignmentid) REFERENCES Assignment_Master(id)
+)
+-----------------------------------------------------------
+Create Table Email_Manager(
+id MEDIUMINT NOT NULL AUTO_INCREMENT,
+assignmentlogid MEDIUMINT,
+createdate DateTime,
+status char(1),
+PRIMARY KEY (id),
+FOREIGN KEY (assignmentlogid) REFERENCES Assignment_Log(id)
+)
